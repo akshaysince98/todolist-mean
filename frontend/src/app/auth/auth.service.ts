@@ -10,7 +10,7 @@ import { AuthData } from './auth-data.model';
 export class AuthService {
 
   private token: string;
-  private userUpdated = new Subject();
+  private userUpdated = new Subject<boolean>();
   constructor(private http: HttpClient, private router: Router) {}
 
   getUserUpdateListener() {
@@ -39,7 +39,7 @@ export class AuthService {
           this.router.navigate(['/']);
         }
 
-        this.userUpdated.next({})
+        this.userUpdated.next(true)
 
       },
       (err)=>{

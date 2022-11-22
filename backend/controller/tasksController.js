@@ -79,9 +79,13 @@ export async function createTask(req, res) {
 
     let url = req.protocol + "://" + req.get("host");
 
+    let creatorData = await userModel.findById(req.userUid.uid)
+    let creatorMail = creatorData.email
+
     let newTask = await tasksModel.create({
       ...taskObj,
       creator: req.userUid.uid,
+      creatorMail,
       imagePath: url + "/uploadedImages/" + req.file.filename,
     });
     if (newTask) {

@@ -5,7 +5,7 @@
       <mat-panel-title>
         <div class="titleCreator" >
           {{ task.title }}
-          <span>by{{creatorMail}}</span>
+          <span>by {{task.creatorMail}}</span>
 
         </div>
       </mat-panel-title>
@@ -14,7 +14,7 @@
       <img [src]="task.imagePath" [alt]="task.title" />
     </div>
     <p>{{ task.description }}</p>
-    <mat-action-row>
+    <mat-action-row *ngIf="loggedIn" >
       <button mat-button color="primary" [routerLink]="['edit/' + task._id]">
         EDIT
       </button>

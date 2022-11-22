@@ -13,6 +13,7 @@ mat-spinner {
 
 .task-image {
   width: 100%;
+  margin: 50px 0px;
   display: flex;
   justify-content: center;
 }
@@ -20,7 +21,8 @@ mat-spinner {
 .task-image img {
   z-index: 2;
   border-radius: 5px;
-  width: 60%;
+  // width: 60%;
+  height: 350px;
   box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.5);
 }
 
