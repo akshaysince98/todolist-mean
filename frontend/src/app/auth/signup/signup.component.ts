@@ -21,7 +21,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup(form: NgForm) {
+    this.isLoading = true
     if (form.invalid) {
+      this.isLoading = false
       return;
     }
 
@@ -32,5 +34,6 @@ export class SignupComponent implements OnInit {
 
     // console.log(auth)
     this.authService.createUser(auth);
+    this.isLoading = false
   }
 }

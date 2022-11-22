@@ -8,37 +8,33 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy{
-
-
+export class HeaderComponent implements OnInit, OnDestroy {
   loggedIn = false;
 
-  constructor(public authService: AuthService, private router: Router){}
+  constructor(public authService: AuthService, private router: Router) {}
 
   private loginSub: Subscription = new Subscription();
 
   ngOnInit(): void {
-      let loginToken = localStorage.getItem("login")
+    let loginToken = localStorage.getItem('login');
 
-
-      this.loginSub = this.authService
+    this.loginSub = this.authService
       .getUserUpdateListener()
       .subscribe((res) => {
         this.loggedIn = res;
       });
 
-      if(loginToken){
-        this.loggedIn = true
-      }
+    if (loginToken) {
+      this.loggedIn = true;
     }
-
-    logoutUser(){
-      console.log("in logout user")
-      localStorage.removeItem("login");
-      this.loggedIn = false
   }
 
-  ngOnDestroy(){
-    this.loginSub.unsubscribe
+  logoutUser() {
+    this.authService.logout();
+    this.loggedIn = false;
+  }
+
+  ngOnDestroy() {
+    this.loginSub.unsubscribe;
   }
 }
