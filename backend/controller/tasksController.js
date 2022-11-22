@@ -1,4 +1,6 @@
 import { tasksModel } from "../model/tasksModel.js";
+import { jwtkey } from "../secrets.js";
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { userModel } from "../model/userModel.js";
 
@@ -7,24 +9,21 @@ export async function getTasks(req, res) {
     // console.log(req.query);
     const pageSize = req.query.pagesize;
     const currentPage = req.query.currentpage;
+    const token = req.query.token;
 
-    let numOfData = await tasksModel.countDocuments();
+
+    let decodedToken = jwt.verify(token, jwtkey);
+    console.log(decodedToken.uid);
+
+    let numOfData = await tasksModel.countDocuments({
+      creator: decodedToken.uid,
+    });
+    console.log(numOfData);
 
     let allTasks = await tasksModel
-      .find({})
+      .find({ creator: decodedToken.uid })
       .skip(pageSize * currentPage)
       .limit(pageSize);
-
-    // TODO: send email with all tasks
-    
-    // for (let i = 0; i < allTasks.length; i++) {
-    //   console.log(allTasks[i]);
-    //   let creatorData = await userModel.findById(allTasks[i]._id);
-    //   allTasks[i] = {
-    //     ...allTasks[i],
-    //     creatorData,
-    //   };
-    // }
 
     if (allTasks) {
       res.json({
@@ -38,8 +37,8 @@ export async function getTasks(req, res) {
       });
     }
   } catch (err) {
-    res.json({
-      message: err.message + "catch",
+    res.status(404).json({
+      message: err.message + " catch",
     });
   }
 }
@@ -79,8 +78,8 @@ export async function createTask(req, res) {
 
     let url = req.protocol + "://" + req.get("host");
 
-    let creatorData = await userModel.findById(req.userUid.uid)
-    let creatorMail = creatorData.email
+    let creatorData = await userModel.findById(req.userUid.uid);
+    let creatorMail = creatorData.email;
 
     let newTask = await tasksModel.create({
       ...taskObj,

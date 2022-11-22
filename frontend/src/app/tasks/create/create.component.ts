@@ -50,7 +50,7 @@ export class CreateTaskComponent implements OnInit {
               this.isLoading = false;
 
               this.task = res.data;
-              this.imagePreview = this.task.imagePath
+              this.imagePreview = this.task.imagePath;
               this.taskForm.setValue({
                 title: this.task.title,
                 description: this.task.description,
@@ -96,9 +96,7 @@ export class CreateTaskComponent implements OnInit {
 
   loginToken = localStorage.getItem('login');
   onSaveTask() {
-    this.isLoading = true
-
-
+    this.isLoading = true;
 
     if (this.mode == 'Edit') {
       const task: any = {
@@ -111,8 +109,8 @@ export class CreateTaskComponent implements OnInit {
       this.tasksService.updateTask(task, this.loginToken);
     } else {
       if (!this.taskForm.valid) {
-        this.isLoading = false
-        alert("Enter missing values")
+        this.isLoading = false;
+        alert('Add image file');
         return;
       }
       const task: any = {
@@ -124,7 +122,7 @@ export class CreateTaskComponent implements OnInit {
 
       this.tasksService.addTask(task, this.loginToken);
     }
-    this.isLoading = false
+    this.isLoading = false;
     this.taskForm.reset();
   }
 }

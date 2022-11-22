@@ -44,18 +44,33 @@ export class TasksService {
   }
 
   getTasks(taskPerPage?: Number, currentPage?: Number) {
+    let token = localStorage.getItem('login');
+
+    if(!token){
+      this.router.navigate(['login']);
+      return
+    }
+
     this.http
       .get<{ message: string; data: Task[]; num: Number; creatorMail: string }>(
         'http://localhost:3000/api/tasks?pagesize=' +
           taskPerPage +
           '&currentpage=' +
-          currentPage
+          currentPage +
+          '&token=' +
+          token
       )
-      .subscribe((res) => {
-        console.log(res);
-        this.tasks = res.data;
-        this.tasksUpdated.next({ tasks: [...this.tasks], num: res.num });
-      });
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.tasks = res.data;
+          this.tasksUpdated.next({ tasks: [...this.tasks], num: res.num });
+        },
+        (err) => {
+          alert('You are not logged in');
+          this.router.navigate(['login']);
+        }
+      );
   }
 
   getTask(id: string | null, token: any) {
@@ -74,7 +89,7 @@ export class TasksService {
     taskFormData.append('title', task.title);
     taskFormData.append('description', task.description);
     taskFormData.append('token', localStorage.getItem('login'));
-    if(task.image){
+    if (task.image) {
       taskFormData.append('image', task.image);
     }
 

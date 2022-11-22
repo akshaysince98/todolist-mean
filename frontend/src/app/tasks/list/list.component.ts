@@ -16,7 +16,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   totalTasks: any = 0;
   pageIndex = 0;
-  pageSize = 3;
+  pageSize = 5;
   pageSizeOptions = [1, 3, 5, 10];
   creatorMail = '';
 

@@ -7,7 +7,6 @@ import {
   deleteTask,
 } from "../controller/tasksController.js";
 import multer from "multer";
-import path from "path";
 import { checkAuth } from "../middlewares/checkAuth.js";
 
 export const tasksRouter = express.Router();
