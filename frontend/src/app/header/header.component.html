@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <a href="" routerLink="">Todo List App</a>
+  <a href="" routerLink="create" routerLinkActive="newLink">New Task</a>
+  <a href="" (click)="logoutUser()" *ngIf="loggedIn">Logout</a>
+  <a href="" routerLink="login" routerLinkActive="loginLink" *ngIf="!loggedIn"
+    >Login</a
+  >
+  <a href="" routerLink="signup" routerLinkActive="signupLink" *ngIf="!loggedIn"
+    >Signup</a
+  >
+</mat-toolbar>

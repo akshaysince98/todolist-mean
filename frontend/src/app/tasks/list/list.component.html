@@ -1,0 +1,40 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion *ngIf="!isLoading">
+  <mat-expansion-panel *ngFor="let task of storedTasks">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="titleCreator" >
+          {{ task.title }}
+          <span>by{{creatorMail}}</span>
+
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="task-image">
+      <img [src]="task.imagePath" [alt]="task.title" />
+    </div>
+    <p>{{ task.description }}</p>
+    <mat-action-row>
+      <button mat-button color="primary" [routerLink]="['edit/' + task._id]">
+        EDIT
+      </button>
+      <button mat-button color="warn" (click)="onDelete(task._id)">
+        DELETE
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<p
+  class="info-text mat-panel-title"
+  *ngIf="storedTasks.length <= 0 && !isLoading"
+>
+  No Task Available
+</p>
+
+<mat-paginator
+  [length]="totalTasks"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChange($event)"
+></mat-paginator>

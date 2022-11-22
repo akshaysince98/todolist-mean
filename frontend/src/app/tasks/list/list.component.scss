@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+.info-text {
+  text-align: center;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.task-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.task-image img {
+  z-index: 2;
+  border-radius: 5px;
+  width: 60%;
+  box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.5);
+}
+
+.titleCreator {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+span {
+  font-size: small;
+  color: #00000051;
+}

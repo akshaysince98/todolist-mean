@@ -1,0 +1,25 @@
+a {
+  text-decoration: none;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+a:hover {
+  transform: scale(1.05);
+  background-color: #5a6edb;
+}
+.newLink {
+  background-color: #5a6edb;
+}
+.loginLink {
+  background-color: #5a6edb;
+}
+.signupLink {
+  background-color: #5a6edb;
+}
+
+div a:hover {
+  transform: scale(1.05);
+  background-color: #5a6edb;
+}
